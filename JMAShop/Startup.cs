@@ -27,8 +27,12 @@ namespace JMAShop
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));      
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +41,7 @@ namespace JMAShop
             app.UseDeveloperExceptionPage();//to add support to showing Exption in browser
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
             app.UseStaticFiles();//to serve static File
+            app.UseSession(); //to Enable session
             app.UseMvcWithDefaultRoute();
 
 
