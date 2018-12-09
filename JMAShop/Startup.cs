@@ -6,18 +6,28 @@ using JMAShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JMAShop
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private IConfigurationRoot _configurationRoot;
+        public Startup(IHostingEnvironment hostingEnvironment) {
+            _configurationRoot = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .Build();
+        }
+
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICategoryRepository, MockCategoryRepository>();
-            services.AddTransient<IItemRepository, MockItemRepository>();
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));      
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IItemRepository, ItemRepository>();
             services.AddMvc();
         }
 
@@ -28,6 +38,13 @@ namespace JMAShop
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
             app.UseStaticFiles();//to serve static File
             app.UseMvcWithDefaultRoute();
+
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbcontext = serviceScope.ServiceProvider.GetService<AppDbContext>();
+                DbInitializer.Seed(dbcontext);
+            }            
         }
     }
 }
