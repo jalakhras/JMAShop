@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using JMAShop.Models;
+﻿using JMAShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +26,8 @@ namespace JMAShop
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
