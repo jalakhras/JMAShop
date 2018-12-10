@@ -42,8 +42,20 @@ namespace JMAShop
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
             app.UseStaticFiles();//to serve static File
             app.UseSession(); //to Enable session
-            app.UseMvcWithDefaultRoute();
+                              //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                  name: "categoryfilter",
+                  template: "Item/{action}/{category?}",
+                  defaults: new { Controller = "Item", action = "List" });
 
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
+
+
+            });
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {

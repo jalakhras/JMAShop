@@ -20,8 +20,8 @@ namespace JMAShop.Components
 
         public IViewComponentResult Invoke()
         {
-            //var items = _shoppingCart.GetShoppingCartItems();
-            var items = new List<ShoppingCartItem>() { new ShoppingCartItem(), new ShoppingCartItem() };
+            var items = _shoppingCart.GetShoppingCartItems();
+            //var items = new List<ShoppingCartItem>() { new ShoppingCartItem(), new ShoppingCartItem() };
             _shoppingCart.ShoppingCartItems = items;
 
             var shoppingCartViewModel = new ShoppingCartViewModel

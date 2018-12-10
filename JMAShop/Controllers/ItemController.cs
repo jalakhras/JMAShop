@@ -19,14 +19,38 @@ namespace JMAShop.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public ViewResult List()
+        public ViewResult List(string category)
         {
-            ItemsListViewModel itemsListViewModel = new ItemsListViewModel();
-            itemsListViewModel.Items = _itemRepository.Items;
+            IEnumerable<Item> items;
+            string currentCategory = string.Empty;
 
-            itemsListViewModel.CurrentCategory = "Cheese cakes";
+            if (string.IsNullOrEmpty(category))
+            {
+                items = _itemRepository.Items.OrderBy(p => p.ItemId);
+                currentCategory = "All items";
+            }
+            else
+            {
+                items = _itemRepository.Items.Where(p => p.Category.CategoryName == category)
+                   .OrderBy(p => p.ItemId);
+                currentCategory = _categoryRepository.Categories.FirstOrDefault(c => c.CategoryName == category).CategoryName;
+            }
 
-            return View(itemsListViewModel);
+            return View(new ItemsListViewModel
+            {
+                Items = items,
+                CurrentCategory = currentCategory
+            });
         }
+
+        public IActionResult Details(int id)
+        {
+            var item = _itemRepository.GetItemById(id);
+            if (item == null)
+                return NotFound();
+
+            return View(item);
+        }
+
     }
 }
