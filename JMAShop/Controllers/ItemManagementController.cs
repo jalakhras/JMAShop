@@ -17,7 +17,7 @@ namespace JMAShop.Controllers
         private readonly IItemRepository _itemRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public ItemManagementController(ItemRepository itemRepository, ICategoryRepository categoryRepository)
+        public ItemManagementController(IItemRepository itemRepository, ICategoryRepository categoryRepository)
         {
             _itemRepository = itemRepository;
             _categoryRepository = categoryRepository;
@@ -48,6 +48,25 @@ namespace JMAShop.Controllers
                 _itemRepository.CreateItem(itemEditViewModel.Item);
                 return RedirectToAction("Index");
             }
+            return View(itemEditViewModel);
+        }
+
+        public IActionResult EditItem(int itemId)
+        {
+            var categories = _categoryRepository.Categories;
+
+            var item = _itemRepository.Items.FirstOrDefault(p => p.ItemId == itemId);
+
+            var itemEditViewModel = new ItemEditViewModel
+            {
+                Categories = categories.Select(c => new SelectListItem() { Text = c.CategoryName, Value = c.CategoryId.ToString() }).ToList(),
+                Item = item,
+                CategoryId = item.CategoryId
+            };
+
+            var items = itemEditViewModel.Categories.FirstOrDefault(c => c.Value == item.CategoryId.ToString());
+            items.Selected = true;
+
             return View(itemEditViewModel);
         }
 

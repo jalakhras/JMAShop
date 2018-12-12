@@ -42,7 +42,13 @@
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                     {
                         @await Component.InvokeAsync("AdminMenu")
+                        <li class="dropdown">
+                            <a asp-controller="ItemManagement"
+                               asp-action="Index">Item Management</a>
+                        </li>
+
                     }
+
                 </ul>
                 @await Html.PartialAsync("LoginPartial")
 

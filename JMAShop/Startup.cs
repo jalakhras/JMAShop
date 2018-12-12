@@ -47,6 +47,8 @@ namespace JMAShop
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Administrator"));
                 options.AddPolicy("DeleteItem", policy => policy.RequireClaim("Delete Item", "Delete Item"));
                 options.AddPolicy("AddItem", policy => policy.RequireClaim("Add Item", "Add Item"));
+                options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
+
             });
 
             services.AddMemoryCache();
