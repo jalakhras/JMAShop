@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Item>
+
+<h2>Item Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No items at this point :()</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Item ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>In stock</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ItemId</td>
+                <td><img src="@item.ImageThumbnailUrl" /></td>
+                <td>@item.Name</td>
+                <td><input type="checkbox" asp-for="@item.InStock" />
+                <td>@item.Price</td>
+                <td>
+                    <form asp-action="DeleteItem" asp-route-itemId="@item.ItemId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditItem" asp-route-itemId="@item.ItemId">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to delete this item?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<p>
+    <a class="btn btn-primary" asp-action="AddItem">Add new item</a>
+</p>

@@ -9,7 +9,8 @@ namespace JMAShop.Models
     {
         IEnumerable<Item> Items { get; }
         IEnumerable<Item> ItemsOfTheWeek { get; }
-
         Item GetItemById(int ItemId);
+        void CreateItem(Item item);
+        void UpdateItem(Item item);
     }
 }

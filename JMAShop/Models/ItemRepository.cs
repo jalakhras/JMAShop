@@ -32,5 +32,17 @@ namespace JMAShop.Models
         {
             return _appDbContext.Items.FirstOrDefault(p => p.ItemId == itemId);
         }
+
+        public void UpdateItem(Item item)
+        {
+            _appDbContext.Items.Update(item);
+            _appDbContext.SaveChanges();
+        }
+
+        public void CreateItem(Item item)
+        {
+            _appDbContext.Items.Add(item);
+            _appDbContext.SaveChanges();
+        }
     }
 }

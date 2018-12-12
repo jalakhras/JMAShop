@@ -1,0 +1,87 @@
+﻿@model ItemEditViewModel
+
+<h2>Create a new item</h2>
+
+<form asp-controller="ItemManagement" asp-action="AddItem" method="post" class="form-horizontal" role="form">
+    <h4>Enter the item details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Item.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.Name" class="form-control" />
+            <span asp-validation-for="Item.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.ShortDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.ShortDescription" class="form-control" />
+            <span asp-validation-for="Item.ShortDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.LongDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.LongDescription" class="form-control" />
+            <span asp-validation-for="Item.LongDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.Price" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.Price" class="form-control" />
+            <span asp-validation-for="Item.Price" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.ImageThumbnailUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.ImageThumbnailUrl" class="form-control" />
+            <span asp-validation-for="Item.ImageThumbnailUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.ImageUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.ImageUrl" class="form-control" />
+            <span asp-validation-for="Item.ImageUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.InStock" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.InStock" class="form-control" />
+            <span asp-validation-for="Item.InStock" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Item.IsItemOfTheWeek" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Item.IsItemOfTheWeek" class="form-control" />
+            <span asp-validation-for="Item.IsItemOfTheWeek" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Categories" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="CategoryId" class="form-control"
+                    asp-items="Model.Categories"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create item" />
+        </div>
+    </div>
+</form>
