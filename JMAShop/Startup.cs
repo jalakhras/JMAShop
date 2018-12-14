@@ -1,5 +1,6 @@
 ﻿using JMAShop.Auth;
 using JMAShop.Models;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,12 +14,26 @@ namespace JMAShop
     public class Startup
     {
         private IConfigurationRoot _configurationRoot;
-        public Startup(IHostingEnvironment hostingEnvironment) {
+        private IConfigurationRoot _configurationSecrets;
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
+
+        //public IConfiguration Configuration { get; }
+
+        public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration) {
             _configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .Build();
+            Configuration = configuration;
+            //_configurationSecrets = new ConfigurationBuilder()
+            //    .SetBasePath(hostingEnvironment.ContentRootPath)
+            //    .AddJsonFile("secrets.json")
+            //    .Build();
         }
+        public IConfiguration Configuration { get; }
 
 
         public void ConfigureServices(IServiceCollection services)
@@ -50,7 +65,11 @@ namespace JMAShop
                 options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
 
             });
-
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -63,7 +82,9 @@ namespace JMAShop
             app.UseStaticFiles();//to serve static File
             app.UseSession(); //to Enable session
             app.UseIdentity();
-                              //app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -82,7 +103,20 @@ namespace JMAShop
             {
                 var dbcontext = serviceScope.ServiceProvider.GetService<AppDbContext>();
                 DbInitializer.Seed(dbcontext);
-            }            
+            }
+
+            //app.UseGoogleAuthentication(new GoogleOptions
+            //{
+            //    ClientId = "51552343977-irjtvsc99t3g0a43vt1fut5ft6jv2ps3.apps.googleusercontent.com",
+            //    ClientSecret = "in0g-ChBZUdp9-Jvb2UjchuM"
+            //});
+            var GoogelAuth = new GoogleOptions
+            {
+                ClientId = "51552343977-irjtvsc99t3g0a43vt1fut5ft6jv2ps3.apps.googleusercontent.com",
+                ClientSecret = "in0g-ChBZUdp9-Jvb2UjchuM"
+            };
+          
+
         }
     }
 }
