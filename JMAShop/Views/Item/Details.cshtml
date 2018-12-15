@@ -22,9 +22,7 @@
     {
         @foreach (var review in @Model.Item.ItemReviews)
         {
-            @*@Html.Raw(@review.Review)*@
             @review.Review
-            @*<div>@WebUtility.HtmlDecode(review.Review) </div>*@
             <hr />
         }
     }

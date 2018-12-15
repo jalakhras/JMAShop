@@ -1,6 +1,5 @@
 ﻿using JMAShop.Auth;
 using JMAShop.Models;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +13,7 @@ namespace JMAShop
     public class Startup
     {
         private IConfigurationRoot _configurationRoot;
-        private IConfigurationRoot _configurationSecrets;
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
-        //public IConfiguration Configuration { get; }
+       
 
         public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration) {
             _configurationRoot = new ConfigurationBuilder()
@@ -28,10 +21,7 @@ namespace JMAShop
                 .AddJsonFile("appsettings.json")
                 .Build();
             Configuration = configuration;
-            //_configurationSecrets = new ConfigurationBuilder()
-            //    .SetBasePath(hostingEnvironment.ContentRootPath)
-            //    .AddJsonFile("secrets.json")
-            //    .Build();
+           
         }
         public IConfiguration Configuration { get; }
 
@@ -47,8 +37,6 @@ namespace JMAShop
                 options.User.RequireUniqueEmail = true;
             })
                   .AddEntityFrameworkStores<AppDbContext>();
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
@@ -106,17 +94,7 @@ namespace JMAShop
                 DbInitializer.Seed(dbcontext);
             }
 
-            //app.UseGoogleAuthentication(new GoogleOptions
-            //{
-            //    ClientId = "51552343977-irjtvsc99t3g0a43vt1fut5ft6jv2ps3.apps.googleusercontent.com",
-            //    ClientSecret = "in0g-ChBZUdp9-Jvb2UjchuM"
-            //});
-            var GoogelAuth = new GoogleOptions
-            {
-                ClientId = "51552343977-irjtvsc99t3g0a43vt1fut5ft6jv2ps3.apps.googleusercontent.com",
-                ClientSecret = "in0g-ChBZUdp9-Jvb2UjchuM"
-            };
-          
+           
 
         }
     }
