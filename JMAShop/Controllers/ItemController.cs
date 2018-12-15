@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Encodings.Web;
 using JMAShop.Models;
 using JMAShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +11,15 @@ namespace JMAShop.Controllers
     {
         private readonly IItemRepository _itemRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IItemReviewRepository _itemReviewRepository;
+        private readonly HtmlEncoder _htmlEncoder;
 
-        public ItemController(IItemRepository itemRepository, ICategoryRepository categoryRepository)
+        public ItemController(IItemRepository itemRepository, ICategoryRepository categoryRepository , IItemReviewRepository itemReviewRepository, HtmlEncoder htmlEncoder)
         {
             _itemRepository = itemRepository;
             _categoryRepository = categoryRepository;
+            _itemReviewRepository = itemReviewRepository;
+            _htmlEncoder = htmlEncoder;
         }
 
         public ViewResult List(string category)
@@ -43,14 +46,31 @@ namespace JMAShop.Controllers
             });
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int ItemId)
         {
-            var item = _itemRepository.GetItemById(id);
+            var item = _itemRepository.GetItemById(ItemId);
             if (item == null)
                 return NotFound();
 
-            return View(item);
+            return View(new ItemDetailViewModel() { Item = item});
+        }
+
+        [HttpPost]
+        public IActionResult Details(int ItemId, string review)
+        {
+            var item = _itemRepository.GetItemById(ItemId);
+            if (item == null)
+                return NotFound();
+
+            //_itemReviewRepository.AddItemReview(new ItemReview() { Item = item, Review = review });
+
+            string encodedReview = _htmlEncoder.Encode(review);
+            _itemReviewRepository.AddItemReview(new ItemReview() { Item = item, Review = encodedReview });
+
+            return View(new ItemDetailViewModel() { Item = item });
         }
 
     }
 }
+
+    

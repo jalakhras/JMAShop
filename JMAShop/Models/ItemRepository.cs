@@ -30,7 +30,7 @@ namespace JMAShop.Models
 
         public Item GetItemById(int itemId)
         {
-            return _appDbContext.Items.FirstOrDefault(p => p.ItemId == itemId);
+            return _appDbContext.Items.Include(x=>x.ItemReviews).Where(p => p.ItemId == itemId).FirstOrDefault();
         }
 
         public void UpdateItem(Item item)

@@ -54,6 +54,7 @@ namespace JMAShop
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IItemReviewRepository, ItemReviewRepository>();
 
             services.AddMvc();
             //Claims-based
