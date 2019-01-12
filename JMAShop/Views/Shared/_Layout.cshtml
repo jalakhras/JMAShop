@@ -43,10 +43,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     @await Component.InvokeAsync("CategoryMenu")
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li><a asp-controller="ItemGift" asp-action="Index">Send a pie</a></li>
-                    }
+                    <li condition="SignInManager.IsSignedIn(User)"><a asp-controller="ItemGift" asp-action="Index">Send a pie</a></li>
                     <li><a asp-controller="Contact" asp-action="Index">Contact us</a></li>
                     @await Component.InvokeAsync("ShoppingCartSummary")
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
