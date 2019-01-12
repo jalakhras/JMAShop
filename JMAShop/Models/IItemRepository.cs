@@ -12,5 +12,6 @@ namespace JMAShop.Models
         Item GetItemById(int ItemId);
         void CreateItem(Item item);
         void UpdateItem(Item item);
+        void DeleteItem(int itemId);
     }
 }

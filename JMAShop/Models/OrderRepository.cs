@@ -33,5 +33,11 @@ namespace JMAShop.Models
             }
             _appDbContext.SaveChanges();
         }
+
+        public void CreateItemGiftOrder(ItemGiftOrder itemGiftOrder)
+        {
+            _appDbContext.ItemGiftOrders.Add(itemGiftOrder);
+            _appDbContext.SaveChanges();
+        }
     }
 }

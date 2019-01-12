@@ -1,14 +1,16 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using JMAShop.Models;
 using JMAShop.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JMAShop.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    [Authorize(Policy = "DeleteItem")]
+   // [Authorize(Policy = "DeleteItem")]
     public class ItemManagementController : Controller
     {
         private readonly IItemRepository _itemRepository;
@@ -40,6 +42,11 @@ namespace JMAShop.Controllers
         [HttpPost]
         public IActionResult AddItem(ItemEditViewModel itemEditViewModel)
         {
+            //custom validation rules
+            if (ModelState.GetValidationState("Item.Price") == ModelValidationState.Valid
+                && itemEditViewModel.Item.Price < 0)
+                ModelState.AddModelError(nameof(itemEditViewModel.Item.Price), "The price of the item should be higher than 0");
+
             if (ModelState.IsValid)
             {
                 _itemRepository.CreateItem(itemEditViewModel.Item);
@@ -48,7 +55,7 @@ namespace JMAShop.Controllers
             return View(itemEditViewModel);
         }
 
-        public IActionResult EditItem(int itemId)
+        public IActionResult EditItem([FromQuery]int itemId, [FromHeader(Name = "Accept-Language")] string accept)
         {
             var categories = _categoryRepository.Categories;
 
@@ -81,10 +88,37 @@ namespace JMAShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteItem(string itemId)
+        public IActionResult DeleteItem(int itemId)
         {
-            return View();
+            _itemRepository.DeleteItem(itemId);
+            return RedirectToAction("index");
+        }
+        public IActionResult QuickEdit()
+        {
+            var itemsNames = _itemRepository.Items.Select(i => i.Name).ToList();
+            return View(itemsNames);
         }
 
+        [HttpPost]
+        public IActionResult QuickEdit(List<string> itemsNames)
+        {
+            //Do awesome things with the pie names here
+            return RedirectToAction("index");
+        }
+
+        public IActionResult BulkEditItems()
+        {
+            var itemNames = _itemRepository.Items.ToList();
+            return View(itemNames);
+        }
+
+        [HttpPost]
+        public IActionResult BulkEditItems(List<Item> Items)
+        {
+            //Do awesome things with the item here
+            return View(Items);
+        }
     }
 }
+
+   

@@ -44,5 +44,11 @@ namespace JMAShop.Models
             _appDbContext.Items.Add(item);
             _appDbContext.SaveChanges();
         }
+        public void DeleteItem(int itemId)
+        {
+            var ItemToDelete = _appDbContext.Items.Include(x => x.ItemReviews).Where(p => p.ItemId == itemId).FirstOrDefault();
+            _appDbContext.Items.Remove(ItemToDelete);
+            _appDbContext.SaveChanges();
+        }
     }
 }

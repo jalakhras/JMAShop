@@ -13,6 +13,7 @@ namespace JMAShop.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<ItemReview> ItemReviews { get; set; }
+        public DbSet<ItemGiftOrder> ItemGiftOrders { get; set; }
 
     }
 }

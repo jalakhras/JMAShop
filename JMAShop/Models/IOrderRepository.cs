@@ -8,5 +8,6 @@ namespace JMAShop.Models
     public interface IOrderRepository
     {
         void CreateOrder(Order order);
+        void CreateItemGiftOrder(ItemGiftOrder itemGiftOrder);
     }
 }
