@@ -34,6 +34,8 @@
     </tfoot>
 </table>
 
+<div progress-value="@((ViewBag.progressValue!=null)?(int)ViewBag.progressValue :0)">
+</div>
 <div>
     <a class="btn btn-primary" asp-controller="Order" asp-action="Checkout">Checkout now !</a>
 </div>

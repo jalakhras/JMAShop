@@ -3,14 +3,13 @@
 
 @model IEnumerable<IdentityUser>
 
-<h2>User management</h2>
 
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
-}
-else
-{
+    }
+    else
+    {
     <table class="table table-condensed table-bordered" header header-content="User Management">
         <tr>
             <th>User ID</th>

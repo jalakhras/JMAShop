@@ -17,11 +17,13 @@ namespace JMAShop.Controllers
         [Authorize]
         public IActionResult Checkout()
         {
+            ViewBag.progressValue = 80; 
             return View();
         }
 
         [HttpPost]
         [Authorize]
+        //[Authorize(Policy = "MinimumOrderAge")]
         public IActionResult Checkout(Order order)
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -45,6 +47,8 @@ namespace JMAShop.Controllers
         public IActionResult CheckoutComplete()
         {
             ViewBag.CheckoutCompleteMessage ="thanks for your order. You'll soon enjoy our delicious items!";
+            ViewBag.progressValue = 100;
+
             return View();
         }
 

@@ -26,7 +26,7 @@ namespace JMAShop.Controllers
                 ShoppingCart = _shoppingCart,
                 ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
             };
-
+            ViewBag.progressValue = 50;
             return View(shoppingCartViewModel);
         }
 
@@ -38,6 +38,7 @@ namespace JMAShop.Controllers
             {
                 _shoppingCart.AddToCart(selectedItem, 1);
             }
+            ViewBag.progressValue = 50;
             return RedirectToAction("Index");
         }
 

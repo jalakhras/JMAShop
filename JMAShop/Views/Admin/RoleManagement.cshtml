@@ -2,7 +2,6 @@
 
 @model IEnumerable<IdentityRole>
 
-<h2>Role management</h2>
 
 @if (!Model.Any())
 {
@@ -10,7 +9,7 @@
 }
 else
 {
-    <table class="table table-condensed table-bordered">
+    <table class="table table-condensed table-bordered" header header-content="Role Management">
         <tr>
             <th>Role ID</th>
             <th>Role name</th>
