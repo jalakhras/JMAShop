@@ -1,4 +1,5 @@
 ﻿using JMAShop.Utility;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,7 @@ namespace JMAShop.Models
         public int ItemId { get; set; }
         [MaxLength(100)]
         [Required(ErrorMessage ="name is Requrid")]
+        [Remote("CheckIfItemNameAlreadyExists", "ItemManagement", ErrorMessage = "That name already exists")]
         public string Name { get; set; }
         [MaxLength(100)]
         [Required(ErrorMessage = "ShortDescription is Requrid")]

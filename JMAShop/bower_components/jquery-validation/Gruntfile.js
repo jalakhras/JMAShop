@@ -171,27 +171,6 @@ grunt.initConfig( {
 				}
 			]
 		}
-	},
-
-	// Generate the sub-resource integrity hashes of the distribution files
-	sri: {
-		options: {
-			algorithms: [ "sha256", "sha384", "sha512" ],
-
-			// The target json file
-			dest: "dist/jquery-validation-sri.json",
-
-			// Stringify the JSON output in a pretty format
-			pretty: true
-		},
-
-		all: {
-			src: [
-				"dist/jquery.validate.{min.js,js}",
-				"dist/additional-methods.{min.js,js}",
-				"dist/localization/*.js"
-			]
-		}
 	}
 } );
 
@@ -204,10 +183,9 @@ grunt.loadNpmTasks( "grunt-contrib-watch" );
 grunt.loadNpmTasks( "grunt-jscs" );
 grunt.loadNpmTasks( "grunt-contrib-copy" );
 grunt.loadNpmTasks( "grunt-text-replace" );
-grunt.loadNpmTasks( "grunt-sri" );
 
 grunt.registerTask( "default", [ "concat", "copy", "jscs", "jshint", "qunit" ] );
-grunt.registerTask( "release", [ "default", "uglify", "replace", "compress", "sri" ] );
+grunt.registerTask( "release", [ "default", "uglify", "replace", "compress" ] );
 grunt.registerTask( "start", [ "concat", "watch" ] );
 
 };

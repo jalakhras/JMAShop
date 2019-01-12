@@ -118,7 +118,11 @@ namespace JMAShop.Controllers
             //Do awesome things with the item here
             return View(Items);
         }
+        [AcceptVerbs("Get", "Post")]
+        public IActionResult CheckIfItemNameAlreadyExists([Bind(Prefix = "Item.Name")]string name)
+        {
+            var Item = _itemRepository.Items.FirstOrDefault(p => p.Name == name);
+            return Item == null ? Json(true) : Json("That Item name is already taken");
+        }
     }
 }
-
-   

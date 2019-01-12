@@ -1,5 +1,5 @@
-// https://jqueryvalidation.org/creditcard-method/
-// based on https://en.wikipedia.org/wiki/Luhn_algorithm
+// http://jqueryvalidation.org/creditcard-method/
+// based on http://en.wikipedia.org/wiki/Luhn_algorithm
 $.validator.addMethod( "creditcard", function( value, element ) {
 	if ( this.optional( element ) ) {
 		return "dependency-mismatch";
@@ -18,7 +18,7 @@ $.validator.addMethod( "creditcard", function( value, element ) {
 	value = value.replace( /\D/g, "" );
 
 	// Basing min and max length on
-	// https://dev.ean.com/general-info/valid-card-types/
+	// http://developer.ean.com/general_info/Valid_Credit_Card_Types
 	if ( value.length < 13 || value.length > 19 ) {
 		return false;
 	}
