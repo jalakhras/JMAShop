@@ -40,7 +40,8 @@ namespace JMAShop.Controllers
 
             return View();
         }
-
+        [Route("GiftOrderComplete")]
+        [Route("ItemGiftOrderComplete")]
         public IActionResult ItemGiftOrderComplete()
         {
             ViewBag.ItemGiftOrderCompleteMessage = HttpContext.User.Identity.Name +

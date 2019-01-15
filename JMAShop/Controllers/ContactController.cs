@@ -8,7 +8,9 @@ namespace JMAShop.Controllers
 {
     public class ContactController : Controller
     {
-        // GET: /<controller>/
+        [Route("Contact")]
+        [Route("ContactUs")]
+        [Route("")]
         public IActionResult Index()
         {
             return View();

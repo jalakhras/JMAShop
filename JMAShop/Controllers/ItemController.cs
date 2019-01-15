@@ -22,6 +22,9 @@ namespace JMAShop.Controllers
             _htmlEncoder = htmlEncoder;
         }
 
+        [Route("ListItems")]
+        [Route("ListOfIems")]
+        [Route("List")]
         public ViewResult List(string category)
         {
             IEnumerable<Item> items;
@@ -46,6 +49,7 @@ namespace JMAShop.Controllers
             });
         }
 
+        [Route("Details/{id}")]
         public IActionResult Details(int ItemId)
         {
             var item = _itemRepository.GetItemById(ItemId);
@@ -55,6 +59,7 @@ namespace JMAShop.Controllers
             return View(new ItemDetailViewModel() { Item = item});
         }
 
+        [Route("Details/{id}")]
         [HttpPost]
         public IActionResult Details(int ItemId, string review)
         {
