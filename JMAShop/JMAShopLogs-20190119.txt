@@ -1,0 +1,240 @@
+2019-01-19 00:14:33.657 +02:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"Item"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+2019-01-19 00:14:33.698 +02:00 [Warning] No type was specified for the decimal column '"OrderTotal"' on entity type '"Order"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+2019-01-19 00:14:33.701 +02:00 [Warning] No type was specified for the decimal column '"Price"' on entity type '"OrderDetail"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+2019-01-19 00:14:33.756 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:14:34.154 +02:00 [Information] Executed DbCommand ("84"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-01-19 00:14:34.206 +02:00 [Information] Executed DbCommand ("19"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Items] AS [i])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END"
+2019-01-19 00:14:34.745 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/  
+2019-01-19 00:14:34.745 +02:00 [Information] Request starting HTTP/1.1 DEBUG http://localhost:5281/  0
+2019-01-19 00:14:34.796 +02:00 [Information] Request finished in 49.4918ms 200 
+2019-01-19 00:14:35.094 +02:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\"}". Executing action "JMAShop.Controllers.HomeController.Index (JMAShop)"
+2019-01-19 00:14:35.181 +02:00 [Information] Executing action method "JMAShop.Controllers.HomeController.Index (JMAShop)" - Validation state: Valid
+2019-01-19 00:14:38.325 +02:00 [Information] Loading home page
+2019-01-19 00:14:38.336 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:14:38.348 +02:00 [Information] Executed action method "JMAShop.Controllers.HomeController.Index (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 3158.3756ms.
+2019-01-19 00:14:39.133 +02:00 [Information] Action executed - elapsed time: 4014.6649
+2019-01-19 00:14:45.257 +02:00 [Information] Action executed - elapsed time: 4014.6649
+2019-01-19 00:14:45.322 +02:00 [Information] Executing ViewResult, running view "Index".
+2019-01-19 00:14:45.534 +02:00 [Information] Executed DbCommand ("52"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ItemId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsItemOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Items] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsItemOfTheWeek] = 1"
+2019-01-19 00:14:45.795 +02:00 [Information] Executed DbCommand ("62"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:14:45.809 +02:00 [Information] Accessing expired session, Key:"33318df6-932e-ac00-27e6-9028963c4d68"
+2019-01-19 00:14:45.881 +02:00 [Information] Executed DbCommand ("47"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:45.974 +02:00 [Information] Executed DbCommand ("54"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:46.014 +02:00 [Information] Executed ViewResult - view "Index" executed in 729.1613ms.
+2019-01-19 00:14:46.020 +02:00 [Information] Executed action "JMAShop.Controllers.HomeController.Index (JMAShop)" in 10912.5804ms
+2019-01-19 00:14:46.027 +02:00 [Information] Session started; Key:"33318df6-932e-ac00-27e6-9028963c4d68", Id:"dc5b51de-5006-b9a8-a517-5ae42a8b69f1"
+2019-01-19 00:14:46.047 +02:00 [Information] Request finished in 11306.443ms 200 text/html; charset=utf-8
+2019-01-19 00:14:50.432 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/Contact  
+2019-01-19 00:14:50.439 +02:00 [Information] Route matched with "{action = \"Index\", controller = \"Contact\", area = \"\"}". Executing action "JMAShop.Controllers.ContactController.Index (JMAShop)"
+2019-01-19 00:14:50.475 +02:00 [Information] Executing action method "JMAShop.Controllers.ContactController.Index (JMAShop)" - Validation state: Valid
+2019-01-19 00:14:50.479 +02:00 [Information] Executed action method "JMAShop.Controllers.ContactController.Index (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.3909ms.
+2019-01-19 00:14:50.484 +02:00 [Information] Action executed - elapsed time: 38.5265
+2019-01-19 00:14:50.492 +02:00 [Information] Executing ViewResult, running view "Index".
+2019-01-19 00:14:50.507 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:14:50.545 +02:00 [Information] Executed DbCommand ("31"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:14:50.584 +02:00 [Information] Executed DbCommand ("31"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:50.628 +02:00 [Information] Executed DbCommand ("38"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:50.644 +02:00 [Information] Executed ViewResult - view "Index" executed in 149.661ms.
+2019-01-19 00:14:50.656 +02:00 [Information] Executed action "JMAShop.Controllers.ContactController.Index (JMAShop)" in 210.0937ms
+2019-01-19 00:14:50.671 +02:00 [Information] Request finished in 242.2268ms 200 text/html; charset=utf-8
+2019-01-19 00:14:53.031 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/List  
+2019-01-19 00:14:53.051 +02:00 [Information] Route matched with "{action = \"List\", controller = \"Item\", area = \"\"}". Executing action "JMAShop.Controllers.ItemController.List (JMAShop)"
+2019-01-19 00:14:53.096 +02:00 [Information] Executing action method "JMAShop.Controllers.ItemController.List (JMAShop)" with arguments ([""]) - Validation state: Valid
+2019-01-19 00:14:58.658 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:14:58.665 +02:00 [Information] Executed action method "JMAShop.Controllers.ItemController.List (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 5563.6972ms.
+2019-01-19 00:14:58.669 +02:00 [Information] Action executed - elapsed time: 5602.851
+2019-01-19 00:14:58.677 +02:00 [Information] Executing ViewResult, running view "List".
+2019-01-19 00:14:58.716 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:14:58.751 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:58.786 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:14:58.793 +02:00 [Information] Executed ViewResult - view "List" executed in 119.2535ms.
+2019-01-19 00:14:58.798 +02:00 [Information] Executed action "JMAShop.Controllers.ItemController.List (JMAShop)" in 5741.7177ms
+2019-01-19 00:14:58.806 +02:00 [Information] Request finished in 5773.0343ms 200 text/html; charset=utf-8
+2019-01-19 00:14:59.006 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/api/ItemData  
+2019-01-19 00:14:59.018 +02:00 [Information] Route matched with "{action = \"LoadMoreItems\", controller = \"ItemData\", area = \"\"}". Executing action "JMAShop.Controllers.ItemDataController.LoadMoreItems (JMAShop)"
+2019-01-19 00:14:59.042 +02:00 [Information] Executing action method "JMAShop.Controllers.ItemDataController.LoadMoreItems (JMAShop)" - Validation state: Valid
+2019-01-19 00:14:59.050 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:14:59.089 +02:00 [Information] Executed DbCommand ("27"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ItemId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsItemOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Items] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]"
+2019-01-19 00:14:59.103 +02:00 [Information] Executed action method "JMAShop.Controllers.ItemDataController.LoadMoreItems (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult" in 54.0618ms.
+2019-01-19 00:14:59.107 +02:00 [Information] Action executed - elapsed time: 84.6155
+2019-01-19 00:14:59.119 +02:00 [Information] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[JMAShop.ViewModels.ItemViewModel, JMAShop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'.
+2019-01-19 00:14:59.188 +02:00 [Information] Executed action "JMAShop.Controllers.ItemDataController.LoadMoreItems (JMAShop)" in 165.5286ms
+2019-01-19 00:14:59.194 +02:00 [Information] Request finished in 188.1813ms 200 application/json; charset=utf-8
+2019-01-19 00:15:03.183 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/Contact  
+2019-01-19 00:15:03.190 +02:00 [Information] Route matched with "{action = \"Index\", controller = \"Contact\", area = \"\"}". Executing action "JMAShop.Controllers.ContactController.Index (JMAShop)"
+2019-01-19 00:15:03.219 +02:00 [Information] Executing action method "JMAShop.Controllers.ContactController.Index (JMAShop)" - Validation state: Valid
+2019-01-19 00:15:03.224 +02:00 [Information] Executed action method "JMAShop.Controllers.ContactController.Index (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.0346ms.
+2019-01-19 00:15:03.228 +02:00 [Information] Action executed - elapsed time: 33.9761
+2019-01-19 00:15:03.235 +02:00 [Information] Executing ViewResult, running view "Index".
+2019-01-19 00:15:03.242 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:15:03.278 +02:00 [Information] Executed DbCommand ("31"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:15:03.316 +02:00 [Information] Executed DbCommand ("31"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:03.347 +02:00 [Information] Executed DbCommand ("26"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:03.352 +02:00 [Information] Executed ViewResult - view "Index" executed in 119.3225ms.
+2019-01-19 00:15:03.358 +02:00 [Information] Executed action "JMAShop.Controllers.ContactController.Index (JMAShop)" in 163.0393ms
+2019-01-19 00:15:03.364 +02:00 [Information] Request finished in 180.54ms 200 text/html; charset=utf-8
+2019-01-19 00:15:04.783 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/Home/Index  
+2019-01-19 00:15:04.788 +02:00 [Information] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\"}". Executing action "JMAShop.Controllers.HomeController.Index (JMAShop)"
+2019-01-19 00:15:04.817 +02:00 [Information] Executing action method "JMAShop.Controllers.HomeController.Index (JMAShop)" - Validation state: Valid
+2019-01-19 00:15:08.819 +02:00 [Information] Loading home page
+2019-01-19 00:15:08.824 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:15:08.829 +02:00 [Information] Executed action method "JMAShop.Controllers.HomeController.Index (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 4007.2267ms.
+2019-01-19 00:15:08.834 +02:00 [Information] Action executed - elapsed time: 4041.4818
+2019-01-19 00:15:08.839 +02:00 [Information] Action executed - elapsed time: 4041.4818
+2019-01-19 00:15:08.844 +02:00 [Information] Executing ViewResult, running view "Index".
+2019-01-19 00:15:08.879 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ItemId], [c].[AllergyInformation], [c].[CategoryId], [c].[ImageThumbnailUrl], [c].[ImageUrl], [c].[InStock], [c].[IsItemOfTheWeek], [c].[LongDescription], [c].[Name], [c].[Price], [c].[ShortDescription], [c.Category].[CategoryId], [c.Category].[CategoryName], [c.Category].[Description]
+FROM [Items] AS [c]
+INNER JOIN [Categories] AS [c.Category] ON [c].[CategoryId] = [c.Category].[CategoryId]
+WHERE [c].[IsItemOfTheWeek] = 1"
+2019-01-19 00:15:08.917 +02:00 [Information] Executed DbCommand ("31"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:15:08.953 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:08.988 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:08.994 +02:00 [Information] Executed ViewResult - view "Index" executed in 149.7952ms.
+2019-01-19 00:15:08.999 +02:00 [Information] Executed action "JMAShop.Controllers.HomeController.Index (JMAShop)" in 4206.8138ms
+2019-01-19 00:15:09.006 +02:00 [Information] Request finished in 4222.2023ms 200 text/html; charset=utf-8
+2019-01-19 00:15:31.256 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/Item/Details?ItemId=1  
+2019-01-19 00:15:31.269 +02:00 [Information] Route matched with "{action = \"Details\", controller = \"Item\", area = \"\"}". Executing action "JMAShop.Controllers.ItemController.Details (JMAShop)"
+2019-01-19 00:15:31.310 +02:00 [Information] Executing action method "JMAShop.Controllers.ItemController.Details (JMAShop)" with arguments (["1"]) - Validation state: Valid
+2019-01-19 00:15:31.312 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:44353/Item/Details?ItemId=1  
+2019-01-19 00:15:33.984 +02:00 [Information] Route matched with "{action = \"Details\", controller = \"Item\", area = \"\"}". Executing action "JMAShop.Controllers.ItemController.Details (JMAShop)"
+2019-01-19 00:15:34.004 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:15:34.049 +02:00 [Information] Executing action method "JMAShop.Controllers.ItemController.Details (JMAShop)" with arguments (["1"]) - Validation state: Valid
+2019-01-19 00:15:37.785 +02:00 [Information] Entity Framework Core "2.1.4-rtm-31024" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "None"
+2019-01-19 00:15:37.859 +02:00 [Information] Executed DbCommand ("36"ms) [Parameters=["@__itemId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[ItemId], [x].[AllergyInformation], [x].[CategoryId], [x].[ImageThumbnailUrl], [x].[ImageUrl], [x].[InStock], [x].[IsItemOfTheWeek], [x].[LongDescription], [x].[Name], [x].[Price], [x].[ShortDescription]
+FROM [Items] AS [x]
+WHERE [x].[ItemId] = @__itemId_0
+ORDER BY [x].[ItemId]"
+2019-01-19 00:15:37.893 +02:00 [Information] Executed DbCommand ("30"ms) [Parameters=["@__itemId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [x].[ItemId], [x].[AllergyInformation], [x].[CategoryId], [x].[ImageThumbnailUrl], [x].[ImageUrl], [x].[InStock], [x].[IsItemOfTheWeek], [x].[LongDescription], [x].[Name], [x].[Price], [x].[ShortDescription]
+FROM [Items] AS [x]
+WHERE [x].[ItemId] = @__itemId_0
+ORDER BY [x].[ItemId]"
+2019-01-19 00:15:37.957 +02:00 [Information] Executed DbCommand ("53"ms) [Parameters=["@__itemId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x.ItemReviews].[ItemReviewId], [x.ItemReviews].[ItemId], [x.ItemReviews].[Review]
+FROM [ItemReviews] AS [x.ItemReviews]
+INNER JOIN (
+    SELECT TOP(1) [x0].[ItemId]
+    FROM [Items] AS [x0]
+    WHERE [x0].[ItemId] = @__itemId_0
+    ORDER BY [x0].[ItemId]
+) AS [t] ON [x.ItemReviews].[ItemId] = [t].[ItemId]
+ORDER BY [t].[ItemId]"
+2019-01-19 00:15:37.961 +02:00 [Information] Executed DbCommand ("55"ms) [Parameters=["@__itemId_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x.ItemReviews].[ItemReviewId], [x.ItemReviews].[ItemId], [x.ItemReviews].[Review]
+FROM [ItemReviews] AS [x.ItemReviews]
+INNER JOIN (
+    SELECT TOP(1) [x0].[ItemId]
+    FROM [Items] AS [x0]
+    WHERE [x0].[ItemId] = @__itemId_0
+    ORDER BY [x0].[ItemId]
+) AS [t] ON [x.ItemReviews].[ItemId] = [t].[ItemId]
+ORDER BY [t].[ItemId]"
+2019-01-19 00:15:37.971 +02:00 [Information] Executed action method "JMAShop.Controllers.ItemController.Details (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 3914.8552ms.
+2019-01-19 00:15:37.974 +02:00 [Information] Executed action method "JMAShop.Controllers.ItemController.Details (JMAShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 6653.4842ms.
+2019-01-19 00:15:37.980 +02:00 [Information] Action executed - elapsed time: 3980.0203
+2019-01-19 00:15:37.982 +02:00 [Information] Action executed - elapsed time: 6693.8764
+2019-01-19 00:15:38.007 +02:00 [Information] Executing ViewResult, running view "Details".
+2019-01-19 00:15:38.009 +02:00 [Information] Executing ViewResult, running view "Details".
+2019-01-19 00:15:42.284 +02:00 [Information] Executed DbCommand ("59"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:15:42.288 +02:00 [Information] Executed DbCommand ("60"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[CategoryId], [c].[CategoryName], [c].[Description]
+FROM [Categories] AS [c]"
+2019-01-19 00:15:42.350 +02:00 [Information] Executed DbCommand ("29"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:42.353 +02:00 [Information] Executed DbCommand ("58"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [c].[ShoppingCartItemId], [c].[Amount], [c].[ItemId], [c].[ShoppingCartId], [c.Item].[ItemId], [c.Item].[AllergyInformation], [c.Item].[CategoryId], [c.Item].[ImageThumbnailUrl], [c.Item].[ImageUrl], [c.Item].[InStock], [c.Item].[IsItemOfTheWeek], [c.Item].[LongDescription], [c.Item].[Name], [c.Item].[Price], [c.Item].[ShortDescription]
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:42.418 +02:00 [Information] Executed DbCommand ("56"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:42.421 +02:00 [Information] Executed DbCommand ("56"ms) [Parameters=["@__ShoppingCartId_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT SUM([c.Item].[Price] * [c].[Amount])
+FROM [ShoppingCartItems] AS [c]
+LEFT JOIN [Items] AS [c.Item] ON [c].[ItemId] = [c.Item].[ItemId]
+WHERE [c].[ShoppingCartId] = @__ShoppingCartId_0"
+2019-01-19 00:15:42.429 +02:00 [Information] Executed ViewResult - view "Details" executed in 4438.4112ms.
+2019-01-19 00:15:42.455 +02:00 [Information] Executed ViewResult - view "Details" executed in 4440.5205ms.
+2019-01-19 00:15:42.475 +02:00 [Information] Executed action "JMAShop.Controllers.ItemController.Details (JMAShop)" in 11195.5889ms
+2019-01-19 00:15:42.478 +02:00 [Information] Executed action "JMAShop.Controllers.ItemController.Details (JMAShop)" in 8477.5507ms
+2019-01-19 00:15:42.486 +02:00 [Information] Request finished in 11229.9928ms 200 text/html; charset=utf-8
+2019-01-19 00:15:42.509 +02:00 [Information] Request finished in 11176.8929ms 200 text/html; charset=utf-8
