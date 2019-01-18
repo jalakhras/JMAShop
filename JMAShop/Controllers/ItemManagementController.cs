@@ -54,7 +54,7 @@ namespace JMAShop.Controllers
             }
             return View(itemEditViewModel);
         }
-
+        [HttpPost]
         public IActionResult EditItem([FromQuery]int itemId, [FromHeader(Name = "Accept-Language")] string accept)
         {
             var categories = _categoryRepository.Categories;
