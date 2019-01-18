@@ -8,21 +8,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace JMAShop
 {
     public class Startup
     {
         private IConfigurationRoot _configurationRoot;
-       
 
-        public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration) {
+
+        public Startup(IHostingEnvironment hostingEnvironment, IConfiguration configuration)
+        {
             _configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .Build();
             Configuration = configuration;
-           
+
         }
         public IConfiguration Configuration { get; }
 
@@ -73,7 +75,7 @@ namespace JMAShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
 
             //Diagnostics
@@ -88,6 +90,19 @@ namespace JMAShop
                 app.UseExceptionHandler("/AppException");
             }
 
+            //Logging
+            //loggerFactory.AddConsole(LogLevel.Debug);
+            //loggerFactory.AddDebug(LogLevel.Debug);
+            //loggerFactory.AddConsole(LogLevel.Critical);
+            //loggerFactory.AddDebug(LogLevel.Critical);
+            //loggerFactory.AddDebug((c, l) => c.Contains("HomeController") && l > LogLevel.Trace);
+
+            loggerFactory.WithFilter(new FilterLoggerSettings
+            {
+                    {"Microsoft", LogLevel.Warning},
+                    {"System", LogLevel.Warning},
+                    {"HomeController", LogLevel.Debug}
+             }).AddDebug();
 
             app.UseDeveloperExceptionPage();//to add support to showing Exption in browser
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
@@ -96,7 +111,7 @@ namespace JMAShop
             app.UseIdentity();
             //app.UseMvcWithDefaultRoute();
 
-           
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -121,7 +136,7 @@ namespace JMAShop
                 DbInitializer.Seed(dbcontext);
             }
 
-           
+
 
         }
     }

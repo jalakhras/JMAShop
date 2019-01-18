@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using JMAShop.Models;
+using JMAShop.Utility;
 using JMAShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace JMAShop.Controllers
 {
@@ -13,13 +16,16 @@ namespace JMAShop.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IItemReviewRepository _itemReviewRepository;
         private readonly HtmlEncoder _htmlEncoder;
+        private readonly ILogger<ItemController> _logger;
 
-        public ItemController(IItemRepository itemRepository, ICategoryRepository categoryRepository , IItemReviewRepository itemReviewRepository, HtmlEncoder htmlEncoder)
+        public ItemController(IItemRepository itemRepository, ICategoryRepository categoryRepository , IItemReviewRepository itemReviewRepository, HtmlEncoder htmlEncoder,
+            ILogger<ItemController> logger)
         {
             _itemRepository = itemRepository;
             _categoryRepository = categoryRepository;
             _itemReviewRepository = itemReviewRepository;
             _htmlEncoder = htmlEncoder;
+            _logger = logger;
         }
 
         [Route("ListItems")]
@@ -54,7 +60,10 @@ namespace JMAShop.Controllers
         {
             var item = _itemRepository.GetItemById(ItemId);
             if (item == null)
+            {
+                _logger.LogDebug(LogEventIds.GetItemIdNotFound, new Exception("Item not found"), "Item with id {0} not found", ItemId);
                 return NotFound();
+            }
 
             return View(new ItemDetailViewModel() { Item = item});
         }
@@ -65,7 +74,10 @@ namespace JMAShop.Controllers
         {
             var item = _itemRepository.GetItemById(ItemId);
             if (item == null)
+            {
+                _logger.LogWarning(LogEventIds.GetItemIdNotFound, new Exception("Item not found"), "Item with id {0} not found", ItemId);
                 return NotFound();
+            }
 
             //_itemReviewRepository.AddItemReview(new ItemReview() { Item = item, Review = review });
 
