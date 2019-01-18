@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -77,6 +78,16 @@ namespace JMAShop
             services.AddSession();
             //Filters
             services.AddScoped<TimerAction>();
+
+            //global filter
+            services.AddMvc
+                (
+                    config => { config.Filters.AddService(typeof(TimerAction)); }
+                )
+                .AddViewLocalization(
+                    LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
