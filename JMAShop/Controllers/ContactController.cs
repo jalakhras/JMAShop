@@ -10,7 +10,6 @@ namespace JMAShop.Controllers
     {
         [Route("Contact")]
         [Route("ContactUs")]
-        [Route("")]
         public IActionResult Index()
         {
             return View();

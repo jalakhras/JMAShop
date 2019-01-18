@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Promo\Views\Home\Index.cshtml" />
+    <None Include="Areas\Promo\Views\_ViewImports.cshtml" />
     <None Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
 
@@ -34,6 +36,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Promo\Data\" />
+    <Folder Include="Areas\Promo\Models\" />
   </ItemGroup>
 
 </Project>
