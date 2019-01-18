@@ -75,6 +75,20 @@ namespace JMAShop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            //Diagnostics
+            //app.UseWelcomePage();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/AppException");
+            }
+
+
             app.UseDeveloperExceptionPage();//to add support to showing Exption in browser
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
             app.UseStaticFiles();//to serve static File
