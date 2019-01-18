@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using System.IO;
 
 namespace JMAShop
 {
@@ -90,6 +92,13 @@ namespace JMAShop
                 app.UseExceptionHandler("/AppException");
             }
 
+            //Serilog
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "JMAShopLogs-{Date}.txt"))
+                .CreateLogger();
+
+            loggerFactory.AddSerilog();
             //Logging
             //loggerFactory.AddConsole(LogLevel.Debug);
             //loggerFactory.AddDebug(LogLevel.Debug);
@@ -97,12 +106,12 @@ namespace JMAShop
             //loggerFactory.AddDebug(LogLevel.Critical);
             //loggerFactory.AddDebug((c, l) => c.Contains("HomeController") && l > LogLevel.Trace);
 
-            loggerFactory.WithFilter(new FilterLoggerSettings
-            {
-                    {"Microsoft", LogLevel.Warning},
-                    {"System", LogLevel.Warning},
-                    {"HomeController", LogLevel.Debug}
-             }).AddDebug();
+            //loggerFactory.WithFilter(new FilterLoggerSettings
+            //{
+            //        {"Microsoft", LogLevel.Warning},
+            //        {"System", LogLevel.Warning},
+            //        {"HomeController", LogLevel.Debug}
+            // }).AddDebug();
 
             app.UseDeveloperExceptionPage();//to add support to showing Exption in browser
             app.UseStatusCodePages();//to allow handel respons status code between 400 and 600
