@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
+using JMAShop.Filters;
 using JMAShop.Models;
 using JMAShop.Utility;
 using JMAShop.ViewModels;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JMAShop.Controllers
 {
+    [ItemNotFoundException]
     public class ItemController : Controller
     {
         private readonly IItemRepository _itemRepository;
@@ -55,20 +57,20 @@ namespace JMAShop.Controllers
             });
         }
 
-        [Route("Details/{id}")]
+        //[Route("Details/{id}")]
         public IActionResult Details(int ItemId)
         {
             var item = _itemRepository.GetItemById(ItemId);
             if (item == null)
             {
                 _logger.LogDebug(LogEventIds.GetItemIdNotFound, new Exception("Item not found"), "Item with id {0} not found", ItemId);
-                return NotFound();
+                throw new ItemNotFoundException();
             }
 
             return View(new ItemDetailViewModel() { Item = item});
         }
 
-        [Route("Details/{id}")]
+        //[Route("Details/{id}")]
         [HttpPost]
         public IActionResult Details(int ItemId, string review)
         {
@@ -76,7 +78,7 @@ namespace JMAShop.Controllers
             if (item == null)
             {
                 _logger.LogWarning(LogEventIds.GetItemIdNotFound, new Exception("Item not found"), "Item with id {0} not found", ItemId);
-                return NotFound();
+                throw new ItemNotFoundException();
             }
 
             //_itemReviewRepository.AddItemReview(new ItemReview() { Item = item, Review = review });

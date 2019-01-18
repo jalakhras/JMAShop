@@ -1,4 +1,5 @@
 ﻿using JMAShop.Auth;
+using JMAShop.Filters;
 using JMAShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,6 +75,8 @@ namespace JMAShop
             });
             services.AddMemoryCache();
             services.AddSession();
+            //Filters
+            services.AddScoped<TimerAction>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,8 +103,8 @@ namespace JMAShop
 
             loggerFactory.AddSerilog();
             //Logging
-            //loggerFactory.AddConsole(LogLevel.Debug);
-            //loggerFactory.AddDebug(LogLevel.Debug);
+            loggerFactory.AddConsole(LogLevel.Debug);
+            loggerFactory.AddDebug(LogLevel.Debug);
             //loggerFactory.AddConsole(LogLevel.Critical);
             //loggerFactory.AddDebug(LogLevel.Critical);
             //loggerFactory.AddDebug((c, l) => c.Contains("HomeController") && l > LogLevel.Trace);

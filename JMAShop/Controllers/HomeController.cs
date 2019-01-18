@@ -1,4 +1,5 @@
-﻿using JMAShop.Models;
+﻿using JMAShop.Filters;
+using JMAShop.Models;
 using JMAShop.Utility;
 using JMAShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace JMAShop.Controllers
 {
+    // [RequireHeader] ToDo jass : when i prodection my web i'll delete comment 
+    [ServiceFilter(typeof(TimerAction))]
     [Route("")]
     [Route("Home")]
     public class HomeController : Controller
